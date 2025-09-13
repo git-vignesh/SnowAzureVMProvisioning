@@ -19,5 +19,5 @@ jobs:
         run: |
           az deployment group create \
             --resource-group practice \
-            --template-file static-vm.bicep
+            --template-file static-vm.bicep \
             --parameters @parameters.json
