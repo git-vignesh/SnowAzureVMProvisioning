@@ -20,4 +20,4 @@ jobs:
           az deployment group create \
             --resource-group practice \
             --template-file static-vm.bicep
-            --parameters adminPassword='S3cur3P@ss!2025'
+            --parameters adminPassword="S3cur3P@ss\!2025"
