@@ -7,6 +7,7 @@ param subnetName string = 'vmsubnet'
 param subnetPrefix string = '10.40.1.0/24'
 
 param adminUsername string = 'azureUser'
+
 @secure()
 param adminPassword string
 
