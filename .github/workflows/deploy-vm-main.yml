@@ -23,4 +23,4 @@ jobs:
           az deployment group create \
             --resource-group practice \
             --template-file static-vm.bicep \
-            --parameters @parameters.json
+            --parameters @parameters.json vmName="${{ github.event.inputs.vmName }}"
