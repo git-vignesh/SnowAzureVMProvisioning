@@ -1,25 +1,43 @@
-// Deploy a basic Windows VM with static values
-
+// Parameters
 param location string = 'uaenorth'
 param vmName string = 'testvm001'
 
-// NIC and Network settings
 param vnetName string = 'vmnet001'
-param vnetAddressPrefix string = '10.40.0.0/16'
 param subnetName string = 'vmsubnet'
 param subnetPrefix string = '10.40.1.0/24'
 
 param adminUsername string = 'azureUser'
-
 @secure()
 param adminPassword string
 
-// Define subnetId variable using resourceId
+// Create VNet resource with subnet
+resource vnet 'Microsoft.Network/virtualNetworks@2023-09-01' = {
+  name: vnetName
+  location: location
+  properties: {
+    addressSpace: {
+      addressPrefixes: [
+        '10.40.0.0/16'  // your vnet CIDR block
+      ]
+    }
+    subnets: [
+      {
+        name: subnetName
+        properties: {
+          addressPrefix: subnetPrefix
+        }
+      }
+    ]
+  }
+}
+
+// Create subnet resource id for use in NIC
 var subnetId = resourceId('Microsoft.Network/virtualNetworks/subnets', vnet.name, subnetName)
 
-// Use subnetId in NIC definition
+// Create a network interface
 resource nic 'Microsoft.Network/networkInterfaces@2023-09-01' = {
-  ...
+  name: '${vmName}-nic'
+  location: location
   properties: {
     ipConfigurations: [
       {
