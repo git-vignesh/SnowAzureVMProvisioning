@@ -2,7 +2,10 @@ name: Deploy VM Bicep
 
 on:
   workflow_dispatch:  # manual trigger (you can change this)
-
+    inputs:
+        vmName:
+          description: 'Virtual Machine Name'
+          required: true
 jobs:
   deploy:
     runs-on: self-hosted   # uses your configured Azure runner
