@@ -1,0 +1,25 @@
+name: Deploy VM Bicep
+
+on:
+  workflow_dispatch:  # manual trigger (you can change this)
+
+jobs:
+  deploy:
+    runs-on: self-hosted   # uses your configured Azure runner
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
+
+      - name: Deploy Bicep to Azure
+        run: |
+          az deployment group create \
+            --resource-group practice \
+            --template-file static-vm.bicep
