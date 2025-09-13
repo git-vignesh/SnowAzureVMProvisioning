@@ -10,39 +10,23 @@ param subnetName string = 'vmsubnet'
 param subnetPrefix string = '10.40.1.0/24'
 
 param adminUsername string = 'azureUser'
+
 @secure()
-param adminPassword string = 'Complex!Pass123'
+param adminPassword string
 
-// Create a VNet
-resource vnet 'Microsoft.Network/virtualNetworks@2023-09-01' = {
-  name: vnetName
-  location: location
-  properties: {
-    addressSpace: {
-      addressPrefixes: [vnetAddressPrefix]
-    }
-    subnets: [
-      {
-        name: subnetName
-        properties: {
-          addressPrefix: subnetPrefix
-        }
-      }
-    ]
-  }
-}
+// Define subnetId variable using resourceId
+var subnetId = resourceId('Microsoft.Network/virtualNetworks/subnets', vnet.name, subnetName)
 
-// Create a NIC
+// Use subnetId in NIC definition
 resource nic 'Microsoft.Network/networkInterfaces@2023-09-01' = {
-  name: '${vmName}-nic'
-  location: location
+  ...
   properties: {
     ipConfigurations: [
       {
         name: 'ipconfig1'
         properties: {
           subnet: {
-            id: vnet.properties.subnets.id
+            id: subnetId
           }
           privateIPAllocationMethod: 'Dynamic'
         }
