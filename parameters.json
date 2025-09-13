@@ -1,9 +1,15 @@
 {
-  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json",
   "contentVersion": "1.0.0.0",
   "parameters": {
     "adminPassword": {
-    "value": "S3cur3P@ss!2025"
+      "value": "S3cur3Pss@2025"
+    },
+    "vmName": {
+      "value": "testvm001"
+    },
+    "location": {
+      "value": "uaenorth"
     }
   }
 }
