@@ -3,7 +3,7 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "adminPassword": {
-      "value": "S3cur3P@ss!2025"
+    "value": "S3cur3P@ss!2025"
     }
   }
 }
